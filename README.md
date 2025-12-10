@@ -1,73 +1,64 @@
-# React + TypeScript + Vite
+# 📝 Dictation App — Платформа для тренировки правописания
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Веб-приложение для изучения языков и тренировки грамотности через диктанты. Пользователи могут создавать свои наборы слов, проходить диктанты с использованием синтеза речи (TTS) и делиться ими с другими.
 
-Currently, two official plugins are available:
+![Project Status](https://img.shields.io/badge/status-active-success)
+![License](https://img.shields.io/badge/license-MIT-blue)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🛠 Технологический стек
 
-## React Compiler
+Проект разработан с использованием современных инструментов и методологии **Feature-Sliced Design (FSD)**.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Core:** React 18, TypeScript, Vite
+- **State Management:** Redux Toolkit, RTK Query
+- **Routing:** React Router DOM v6
+- **UI Framework:** Ant Design (AntD)
+- **Styling:** SCSS Modules, CSS Modules
+- **Architecture:** Feature-Sliced Design (FSD)
+- **Tools:** ESLint, Prettier, async-mutex (для JWT refresh logic)
 
-## Expanding the ESLint configuration
+## ✨ Функционал
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 🔐 Авторизация и Безопасность
+- Регистрация и Вход пользователей.
+- Система **JWT Authentication** (Access + Refresh Tokens).
+- Автоматическое обновление токена через Interceptor (RTK Query + Mutex).
+- Защита приватных роутов.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 📚 Библиотека диктантов
+- Разделение на "Мои диктанты" и "Публичные".
+- Фильтрация по языку (RU, EN, DE) и параметрам.
+- Адаптивная сетка карточек.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### ✍️ Управление контентом
+- **Создание:** Удобная форма с валидацией для добавления слов.
+- **Редактирование:** Возможность изменять списки слов и настройки.
+- **Удаление:** Защита от случайного удаления (Popconfirm).
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### 🗣 Озвучка (TTS)
+- Использование **Web Speech API** для озвучивания слов без внешних зависимостей.
+- Поддержка разных языков.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 📂 Структура проекта (FSD)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Проект строго следует методологии Feature-Sliced Design:
+src/
+├── app/          # Инициализация (Store, Router, Styles)
+├── pages/        # Сборка страниц из виджетов (Landing, Login, DictationList)
+├── widgets/      # Крупные блоки (Header, DictationListWidget)
+├── features/     # Бизнес-сценарии (Auth, CreateDictation, Filters)
+├── entities/     # Бизнес-сущности (User, Dictation, Word)
+└── shared/       # Переиспользуемый код (UI Kit, API base, Config)
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+
+##  Запуск проекта локально
+### Предварительные требования
+
+Node.js (v16 или выше)
+Запущенный Backend (API) на порту 5000 (или настройка прокси в vite.config.ts)
+
+### Установка
+git clone https://github.com/damikmaxxx/dictation-app.git
+cd dictation-app
+npm install
+npm run dev
