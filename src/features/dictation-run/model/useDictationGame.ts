@@ -13,7 +13,6 @@ export const useDictationGame = (words: GameWord[], language: string) => {
 
   const currentWord = words[currentIndex];
 
-  // 1. Озвучиваем слово при смене индекса
   useEffect(() => {
     if (currentWord && !isFinished) {
       speak(currentWord.text, language);

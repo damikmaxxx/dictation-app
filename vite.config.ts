@@ -18,7 +18,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:5000', // Адрес твоего бекенда
+        target: 'https://server-damik.amvera.io', // Адрес твоего бекенда
         changeOrigin: true,
         secure: false,
       },
