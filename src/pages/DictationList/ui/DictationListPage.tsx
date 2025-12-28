@@ -1,16 +1,17 @@
 import React, { useState, useMemo } from 'react';
-import { Typography, Spin, Segmented } from 'antd';
+import { Typography, Segmented } from 'antd';
 import { useGetDictationsQuery, useGetPublicDictationsQuery } from 'entities/dictation';
-import { useAppSelector } from 'app/store/hooks';
+// import { useAppSelector } from 'app/store/hooks';
 import styles from './DictationListPage.module.scss';
 
 import { DictationSidebarFilters } from 'features/dictation-filters';
 import { DictationListWidget } from 'widgets/DictationList';
+import { Loader } from 'shared/ui';
 
 const { Title } = Typography;
 
 export const DictationListPage: React.FC = () => {
-  const myUserId = useAppSelector((state) => state.user.user?.id);
+  // const myUserId = useAppSelector((state) => state.user.user?.id);
 
   const [activeTab, setActiveTab] = useState<'my' | 'public'>('my');
   const [language, setLanguage] = useState<string | null>(null);
@@ -61,9 +62,7 @@ export const DictationListPage: React.FC = () => {
           />
         </div>
 
-        {isLoading ? (
-          <div style={{ textAlign: 'center', marginTop: 50 }}><Spin size="large" /></div>
-        ) : (
+        {isLoading ? <Loader /> : (
           <DictationListWidget
             items={filteredList}
             mode={activeTab}

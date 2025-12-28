@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Form,  Row, Col, message, Spin } from 'antd';
-import { Button } from 'shared/ui';
+import { Form,  Row, Col, message} from 'antd';
+import { Button, Loader } from 'shared/ui';
 import { ROUTES } from 'shared/config';
 import { useGetDictationByIdQuery, useUpdateDictationMutation } from 'entities/dictation';
 
@@ -73,7 +73,7 @@ export const EditDictationForm: React.FC<EditDictationFormProps> = ({ dictationI
   };
 
   if (isFetching) {
-    return <div style={{ textAlign: 'center', padding: 50 }}><Spin size="large" /></div>;
+    return <Loader />;
   }
 
   return (

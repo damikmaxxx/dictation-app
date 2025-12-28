@@ -1,9 +1,10 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Spin, Result, Button } from 'antd';
+import { Result, Button } from 'antd';
 import { useGetDictationByIdQuery } from 'entities/dictation';
 import { DictationSession } from 'features/dictation-run';
 import { ROUTES } from 'shared/config';
+import { Loader } from 'shared/ui';
 
 export const DictationRunPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -11,7 +12,7 @@ export const DictationRunPage: React.FC = () => {
 
   const { data: dictation, isLoading, isError } = useGetDictationByIdQuery(id || '');
 
-  if (isLoading) return <div style={{ textAlign: 'center', marginTop: 100 }}><Spin size="large" /></div>;
+  if (isLoading) return <Loader />;
   
   if (isError || !dictation) {
     return (
