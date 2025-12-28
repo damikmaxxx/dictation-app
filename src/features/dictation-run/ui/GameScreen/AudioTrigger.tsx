@@ -14,7 +14,7 @@ export const AudioTrigger: React.FC<AudioTriggerProps> = ({ onClick, isSpeaking 
         type="default"
         shape="circle"
         onClick={onClick}
-        disabled={isSpeaking} // Блокируем, пока говорит
+        disabled={isSpeaking} 
         style={{
           width: 120,
           height: 120,
@@ -23,7 +23,7 @@ export const AudioTrigger: React.FC<AudioTriggerProps> = ({ onClick, isSpeaking 
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          color: isSpeaking ? '#1677ff' : undefined, // Синий, когда говорит
+          color: isSpeaking ? '#1677ff' : undefined, 
           borderColor: isSpeaking ? '#1677ff' : undefined,
         }}
       >

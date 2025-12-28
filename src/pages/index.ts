@@ -5,3 +5,4 @@ export { DictationCreatePage } from './DictationCreate';
 export { DictationListPage } from './DictationList';
 export { DictationEditPage } from './DictationEdit';
 export { DictationRunPage } from './DictationRun';
+export { ProfilePage } from './Profile';

@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Typography, Spin, Segmented } from 'antd';
-import { useGetDictationsQuery } from 'entities/dictation';
+import { useGetDictationsQuery, useGetPublicDictationsQuery } from 'entities/dictation';
 import { useAppSelector } from 'app/store/hooks';
 import styles from './DictationListPage.module.scss';
 
@@ -11,35 +11,43 @@ const { Title } = Typography;
 
 export const DictationListPage: React.FC = () => {
   const myUserId = useAppSelector((state) => state.user.user?.id);
-  const { data: allDictations, isLoading } = useGetDictationsQuery();
 
   const [activeTab, setActiveTab] = useState<'my' | 'public'>('my');
   const [language, setLanguage] = useState<string | null>(null);
+  const {
+    data: myDictations,
+    isLoading: isMyLoading
+  } = useGetDictationsQuery(undefined, { skip: activeTab !== 'my' });
+
+  const {
+    data: publicDictations,
+    isLoading: isPublicLoading
+  } = useGetPublicDictationsQuery(undefined, { skip: activeTab !== 'public' });
+
+  const currentData = activeTab === 'my' ? myDictations : publicDictations;
+  const isLoading = activeTab === 'my' ? isMyLoading : isPublicLoading;
 
   const filteredList = useMemo(() => {
-    if (!allDictations) return [];
+    if (!currentData) return [];
 
-    return allDictations.filter((d) => {
-      const isMy = d.authorId === myUserId;
-      if (activeTab === 'my' && !isMy) return false;
-      if (activeTab === 'public' && (!d.isPublic || isMy)) return false;
+    return currentData.filter((d) => {
       if (language && d.language !== language) return false;
       return true;
     });
-  }, [allDictations, activeTab, language, myUserId]);
+  }, [currentData, language]);
 
   return (
     <div className={styles.pageWrapper}>
-      
+
       <aside className={styles.sidebar}>
-        <DictationSidebarFilters 
+        <DictationSidebarFilters
           language={language}
           onChangeLanguage={setLanguage}
         />
       </aside>
 
       <main className={styles.content}>
-        
+
         <div className={styles.header}>
           <Title level={2}>Библиотека</Title>
           <Segmented
@@ -56,9 +64,9 @@ export const DictationListPage: React.FC = () => {
         {isLoading ? (
           <div style={{ textAlign: 'center', marginTop: 50 }}><Spin size="large" /></div>
         ) : (
-          <DictationListWidget 
-            items={filteredList} 
-            mode={activeTab} 
+          <DictationListWidget
+            items={filteredList}
+            mode={activeTab}
             isLoading={isLoading}
           />
         )}

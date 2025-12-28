@@ -9,13 +9,10 @@ export const useSpeechSynthesis = () => {
       return;
     }
 
-    // Останавливаем, если что-то уже говорится
     window.speechSynthesis.cancel();
 
     const utterance = new SpeechSynthesisUtterance(text);
     
-    // Настройка языка (превращаем 'ru' в 'ru-RU', 'en' в 'en-US')
-    // Простая мапа, можно расширить
     const langMap: Record<string, string> = {
       ru: 'ru-RU',
       en: 'en-US',
@@ -24,8 +21,7 @@ export const useSpeechSynthesis = () => {
     };
     
     utterance.lang = langMap[lang] || lang;
-    utterance.rate = 0.9; // Чуть медленнее нормы, чтобы понятнее было
-
+    utterance.rate = 0.9; 
     utterance.onstart = () => setIsSpeaking(true);
     utterance.onend = () => setIsSpeaking(false);
     utterance.onerror = () => setIsSpeaking(false);

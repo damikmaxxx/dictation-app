@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Card, Input as AntInput } from 'antd'; // Берем прямой AntInput для ref
+import { Card, Input as AntInput } from 'antd';
 import { Button } from 'shared/ui';
 import { GameProgress } from './GameProgress';
 import { AudioTrigger } from './AudioTrigger';
@@ -21,17 +21,15 @@ export const GameScreen: React.FC<GameScreenProps> = ({
 }) => {
   const [inputValue, setInputValue] = useState('');
   
-  // Реф нужен, чтобы возвращать фокус в поле после нажатия кнопок
   const inputRef = useRef<any>(null); 
 
-  // Очищаем поле при смене слова
   useEffect(() => {
     setInputValue('');
     inputRef.current?.focus();
   }, [currentIndex]);
 
   const handleSubmit = () => {
-    if (!inputValue.trim()) return; // Не пускаем пустые
+    if (!inputValue.trim()) return; 
     onSubmit(inputValue);
   };
 
@@ -39,13 +37,10 @@ export const GameScreen: React.FC<GameScreenProps> = ({
     <div style={{ maxWidth: 600, margin: '0 auto', paddingTop: 20 }}>
       <Card bordered={false} style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
         
-        {/* 1. Прогресс */}
         <GameProgress current={currentIndex} total={totalWords} />
 
-        {/* 2. Звук */}
         <AudioTrigger onClick={onRepeat} isSpeaking={isSpeaking} />
 
-        {/* 3. Ввод */}
         <div style={{ marginBottom: 20 }}>
           <AntInput
             ref={inputRef}
@@ -69,7 +64,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({
           block 
           size="large" 
           onClick={handleSubmit}
-          disabled={!inputValue.trim()} // Блокируем, если пусто
+          disabled={!inputValue.trim()} 
           style={{ height: 50, fontSize: 18 }}
         >
           {currentIndex === totalWords - 1 ? 'Завершить' : 'Далее'}

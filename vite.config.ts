@@ -6,7 +6,6 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      // Связываем название слоя с реальной папкой
       app: path.resolve(__dirname, './src/app'),
       pages: path.resolve(__dirname, './src/pages'),
       widgets: path.resolve(__dirname, './src/widgets'),
@@ -18,7 +17,9 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://server-damik.amvera.io', // Адрес твоего бекенда
+        // http://localhost:5000
+        //https://server-damik.amvera.io
+        target: 'http://localhost:5000',
         changeOrigin: true,
         secure: false,
       },

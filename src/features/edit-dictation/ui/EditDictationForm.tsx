@@ -6,6 +6,7 @@ import { ROUTES } from 'shared/config';
 import { useGetDictationByIdQuery, useUpdateDictationMutation } from 'entities/dictation';
 
 import { MainInputs, SettingsSidebar,DictationFormLayout } from 'entities/dictation';
+import { findInvalidWords, parseWords } from 'shared/lib';
 
 interface EditDictationFormProps {
   dictationId: string | number;
@@ -35,16 +36,23 @@ export const EditDictationForm: React.FC<EditDictationFormProps> = ({ dictationI
 
   const onFinish = async (values: any) => {
     try {
-      const wordsArray = values.wordsString
-        ?.split(',')
-        .map((w: string) => w.trim())
-        .filter((w: string) => w.length > 0)
-        .map((text: string) => ({ text }));
+      const wordsArray = parseWords(values.wordsString);
 
       if (!wordsArray || wordsArray.length === 0) {
         message.error('Список слов пуст!');
         return;
       }
+      const invalidWords = findInvalidWords(wordsArray, values.language);
+      console.log(invalidWords,values)
+      if (invalidWords.length > 0) {
+        const badWordsStr = invalidWords.slice(0, 3).join(', ');
+        message.error(`Ошибка! Слова содержат недопустимые символы (${values.language}): ${badWordsStr}...`);
+        return; 
+      }
+      
+      const wordsObjects = wordsArray.map((wordText) => ({
+        text: wordText,
+      }));
 
       await updateDictation({
         id: Number(dictationId),
@@ -52,7 +60,7 @@ export const EditDictationForm: React.FC<EditDictationFormProps> = ({ dictationI
         description: values.description,
         language: values.language,
         isPublic: values.isPublic,
-        words: wordsArray,
+        words: wordsObjects,
       }).unwrap();
 
       message.success('Диктант обновлен!');

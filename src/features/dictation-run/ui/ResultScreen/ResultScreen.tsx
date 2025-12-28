@@ -11,12 +11,10 @@ interface ResultScreenProps {
 }
 
 export const ResultScreen: React.FC<ResultScreenProps> = ({ answers, onRetry, onBack }) => {
-  // Считаем математику
   const correctCount = answers.filter((a) => a.isCorrect).length;
   const total = answers.length;
   const percent = Math.round((correctCount / total) * 100);
 
-  // Выбираем статус и заголовок
   let status: 'success' | 'warning' | 'error' = 'error';
   let title = 'Нужно потренироваться';
   
@@ -24,7 +22,7 @@ export const ResultScreen: React.FC<ResultScreenProps> = ({ answers, onRetry, on
     status = 'success';
     title = 'Великолепно! Ни одной ошибки 🎉';
   } else if (percent >= 70) {
-    status = 'success'; // Или warning, по вкусу
+    status = 'success';
     title = 'Хороший результат!';
   } else if (percent >= 40) {
     status = 'warning';
@@ -49,7 +47,6 @@ export const ResultScreen: React.FC<ResultScreenProps> = ({ answers, onRetry, on
           ]}
         />
 
-        {/* Показываем список, если были ошибки или просто для истории */}
         <div style={{ marginTop: 20, borderTop: '1px solid #f0f0f0', paddingTop: 20 }}>
           <ResultList answers={answers} />
         </div>

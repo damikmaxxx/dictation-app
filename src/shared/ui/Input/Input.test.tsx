@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Input } from './Input'; // Или index
+import { Input } from './Input';
 
 describe('Input Component', () => {
   it('renders correctly with placeholder', () => {

@@ -1,5 +1,4 @@
 export default {
-  // Вместо preset: 'ts-jest', пишем развернутую настройку:
   transform: {
     '^.+\\.tsx?$': [
       'ts-jest',
@@ -16,7 +15,6 @@ export default {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
     '\\.(jpg|jpeg|png|gif|svg)$': '<rootDir>/src/shared/lib/tests/fileMock.js',
     
-    // Алиасы
     '^app/(.*)$': '<rootDir>/src/app/$1',
     '^pages/(.*)$': '<rootDir>/src/pages/$1',
     '^widgets/(.*)$': '<rootDir>/src/widgets/$1',

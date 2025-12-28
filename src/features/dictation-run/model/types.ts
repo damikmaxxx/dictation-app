@@ -1,12 +1,11 @@
-// Входящее слово (из диктанта)
+
 export interface GameWord {
   text: string;
-  audioUrl?: string; // На будущее
+  audioUrl?: string; 
 }
 
-// Результат по одному слову
 export interface GameAnswer {
-  word: string;        // Что было загадано
-  userInput: string;   // Что ввел юзер
-  isCorrect: boolean;  // Правильно или нет
+  word: string;        
+  userInput: string;   
+  isCorrect: boolean;  
 }

@@ -1,6 +1,5 @@
 import '@testing-library/jest-dom';
 
-// 1. Mock matchMedia (уже был)
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: jest.fn().mockImplementation(query => ({
@@ -15,7 +14,6 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 });
 
-// 2. Mock MessageChannel (уже был)
 window.MessageChannel = class MessageChannel {
   port1 = {
     onmessage: null,
@@ -38,14 +36,12 @@ window.MessageChannel = class MessageChannel {
   } as unknown as MessagePort;
 } as any;
 
-// 3. === НОВОЕ: Mock ResizeObserver (Критично для Select/Dropdown) ===
 window.ResizeObserver = class ResizeObserver {
   observe() {}
   unobserve() {}
   disconnect() {}
 };
 
-// 4. === НОВОЕ: Mock Pointer Events и Scroll (Нужно для кликов и прокрутки) ===
 window.HTMLElement.prototype.scrollIntoView = jest.fn();
 window.HTMLElement.prototype.hasPointerCapture = jest.fn();
 window.HTMLElement.prototype.releasePointerCapture = jest.fn();

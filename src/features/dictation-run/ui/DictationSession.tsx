@@ -1,18 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDictationGame } from '../model/useDictationGame';
 import { GameScreen } from './GameScreen/GameScreen';
 import { ResultScreen } from './ResultScreen/ResultScreen';
 import { DictationWordDto } from 'entities/dictation';
+import { useSaveResultMutation } from 'entities/history'; 
 
 interface DictationSessionProps {
+  dictationId: number; 
   words: DictationWordDto[];
   language: string;
-  // === 1. ИСПРАВЛЕНИЕ ТИПА ===
-  // Теперь мы говорим, что onFinish принимает число (score)
-  onFinish?: (score: number) => void; 
+  onFinish?: (score: number) => void;
 }
 
 export const DictationSession: React.FC<DictationSessionProps> = ({ 
+  dictationId, 
   words, 
   language, 
   onFinish 
@@ -28,19 +29,40 @@ export const DictationSession: React.FC<DictationSessionProps> = ({
     restart
   } = useDictationGame(words, language);
 
+  const [saveResult] = useSaveResultMutation();
+
+  useEffect(() => {
+    if (isFinished) {
+      const correctCount = answers.filter(a => a.isCorrect).length;
+      const score = totalWords > 0 ? Math.round((correctCount / totalWords) * 100) : 0;
+      
+      const errors = answers
+        .filter(a => !a.isCorrect)
+        .map(a => ({ word: a.word, userInput: a.userInput }));
+
+      saveResult({
+        dictationId,
+        score,
+        totalWords,
+        correctCount,
+        errors
+      })
+      .unwrap()
+      .then(() => console.log('✅ Результат сохранен!'))
+      .catch((err) => console.error('❌ Ошибка сохранения:', err));
+    }
+  }, [isFinished]); 
+
   if (isFinished) {
-    // === 2. ВЫЧИСЛЯЕМ ОЧКИ ПЕРЕД ВЫХОДОМ ===
     const correctCount = answers.filter(a => a.isCorrect).length;
-    // Защита от деления на ноль, если слов нет (хотя такого быть не должно)
     const score = totalWords > 0 ? Math.round((correctCount / totalWords) * 100) : 0;
 
     return (
       <ResultScreen 
         answers={answers} 
         onRetry={restart} 
-        // === 3. ПЕРЕДАЕМ ОЧКИ В КОЛЛБЕК ===
         onBack={() => {
-          if (onFinish) onFinish(score); 
+          if (onFinish) onFinish(score);
         }} 
       />
     );

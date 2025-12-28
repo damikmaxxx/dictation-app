@@ -1,6 +1,6 @@
-import React from 'react';
+
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event'; // Импортируем эмулятор юзера
+import userEvent from '@testing-library/user-event'; 
 import { Button } from './Button';
 
 describe('Button Component', () => {
@@ -10,7 +10,7 @@ describe('Button Component', () => {
   });
 
   it('calls onClick handler when clicked', async () => {
-    const user = userEvent.setup(); // Настраиваем "юзера"
+    const user = userEvent.setup(); 
     const handleClick = jest.fn();
     
     render(<Button onClick={handleClick}>Click Me</Button>);

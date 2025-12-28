@@ -18,7 +18,6 @@ describe('parseWords utility', () => {
 
   it('should return empty array for empty string or null', () => {
     expect(parseWords('')).toEqual([]);
-    // @ts-ignore (testing robustness for JS usage)
     expect(parseWords(null)).toEqual([]);
   });
 });

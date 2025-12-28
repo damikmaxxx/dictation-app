@@ -43,19 +43,16 @@ export const DictationListWidget: React.FC<DictationListWidgetProps> = ({
         <Col key={dictation.id} xs={24} sm={12} md={8} lg={6} xl={6}>
           <DictationCard 
             dictation={dictation} 
-            // Клик по карточке ведет на ИГРУ (пока в консоль)
             onClick={(id) => navigate(ROUTES.DICTATION_RUN(id))} 
             
             extra={
               mode === 'my' ? (
                 <Space>
-                  {/* === КНОПКА РЕДАКТИРОВАНИЯ === */}
                   <Button 
                     type="text" 
                     icon={<EditOutlined style={{ color: '#1677ff' }} />} 
                     onClick={(e) => {
                        e.stopPropagation();
-                       // ИСПОЛЬЗУЕМ КОНФИГ:
                        navigate(ROUTES.DICTATION_EDIT(dictation.id)); 
                     }}
                   />
@@ -68,7 +65,6 @@ export const DictationListWidget: React.FC<DictationListWidgetProps> = ({
         </Col>
       ))}
 
-      {/* Кнопка "Создать новый" в сетке */}
       {mode === 'my' && (
         <Col xs={24} sm={12} md={8} lg={6} xl={6}>
           <Button 

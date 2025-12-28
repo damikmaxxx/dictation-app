@@ -36,6 +36,7 @@ export const DictationRunPage: React.FC = () => {
   return (
     <div style={{ minHeight: '100%', background: '#f0f2f5', padding: 20 }}>
       <DictationSession 
+        dictationId={Number(dictation.id)} 
         words={dictation.words} 
         language={dictation.language}
         onFinish={(score) => {

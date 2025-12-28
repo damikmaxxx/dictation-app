@@ -3,14 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import { Form, Row, Col, message } from 'antd';
 import { ROUTES } from 'shared/config';
 import { useCreateDictationMutation, MainInputs, SettingsSidebar, DictationFormLayout } from 'entities/dictation';
-import { parseWords } from 'shared/lib/string/parseWords'; 
+import { parseWords } from 'shared/lib/string/parseWords';
+import { findInvalidWords } from 'shared/lib/validation/languageValidator';
+import { Button } from 'shared/ui';
 
 interface DictationFormValues {
   title: string;
   description?: string;
   language: string;
   isPublic: boolean;
-  wordsString: string; 
+  wordsString: string;
 }
 
 export const CreateDictationForm: React.FC = () => {
@@ -27,6 +29,16 @@ export const CreateDictationForm: React.FC = () => {
         return;
       }
 
+
+      const invalidWords = findInvalidWords(rawWords, values.language);
+
+      if (invalidWords.length > 0) {
+        const badWordsStr = invalidWords.slice(0, 3).join(', ');
+        message.error(`Ошибка! Слова содержат недопустимые символы для этого языка: ${badWordsStr}...`);
+        return;
+      }
+
+
       const wordsObjects = rawWords.map((wordText) => ({
         text: wordText,
       }));
@@ -36,7 +48,7 @@ export const CreateDictationForm: React.FC = () => {
         description: values.description,
         language: values.language,
         isPublic: values.isPublic,
-        words: wordsObjects, 
+        words: wordsObjects,
       }).unwrap();
 
       message.success('Диктант успешно создан!');
@@ -51,7 +63,7 @@ export const CreateDictationForm: React.FC = () => {
   return (
     <DictationFormLayout title="Создание нового диктанта">
       <Form
-        form={form} 
+        form={form}
         layout="vertical"
         onFinish={onFinish}
         initialValues={{ isPublic: true, language: 'ru' }}
@@ -65,6 +77,15 @@ export const CreateDictationForm: React.FC = () => {
 
           <Col xs={24} md={10}>
             <SettingsSidebar form={form} />
+            <Button
+              type="primary"
+              htmlType="submit"
+              size="large"
+              loading={isLoading}
+              block
+            >
+              Создать диктант
+            </Button>
           </Col>
         </Row>
       </Form>

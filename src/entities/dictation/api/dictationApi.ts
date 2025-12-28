@@ -1,5 +1,5 @@
-import { baseApi } from '../../../shared/api/baseApi';
-import type { Word } from '../../../entities/word';
+import { baseApi } from 'shared/api/baseApi';
+import type { Word } from 'entities/word';
 
 import type { 
   Dictation, 
@@ -20,7 +20,13 @@ export const dictationApi = baseApi.injectEndpoints({
             ]
           : [{ type: 'Dictation', id: 'LIST' }],
     }),
-
+    getPublicDictations: build.query<Dictation[], void>({
+      query: () => ({ 
+        url: '/dictations/public',
+        method: 'GET' 
+      }),
+      providesTags: [{ type: 'Dictation', id: 'LIST' }], 
+    }),
     getDictationById: build.query<Dictation<Word>, number | string>({
       query: (id) => ({ url: `/dictations/${id}`, method: 'GET' }),
       providesTags: (_result, _error, id) => [{ type: 'Dictation', id }],
@@ -56,6 +62,7 @@ export const dictationApi = baseApi.injectEndpoints({
 
 export const {
   useGetDictationsQuery,
+  useGetPublicDictationsQuery,
   useGetDictationByIdQuery,
   useCreateDictationMutation,
   useUpdateDictationMutation,

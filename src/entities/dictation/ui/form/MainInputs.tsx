@@ -80,17 +80,6 @@ export const MainInputs: React.FC<MainInputsProps> = ({ form, isLoading }) => {
         />
       </Form.Item>
 
-      <Form.Item style={{ marginBottom: 0 }}>
-        <Button 
-          type="primary" 
-          htmlType="submit" 
-          block 
-          size="large" 
-          loading={isLoading}
-        >
-          Создать диктант
-        </Button>
-      </Form.Item>
     </div>
   );
 };
