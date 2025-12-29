@@ -1,0 +1,57 @@
+{
+  "list": {
+    "title": "Library",
+    "tab_my": "My Dictations",
+    "tab_public": "Public",
+    "create_button": "Create",
+    "filters": {
+      "language": "Language",
+      "any": "Any"
+    },
+    "empty": {
+      "my_title": "Your dictations will appear here",
+      "my_button": "Create first dictation",
+      "public": "Nothing found"
+    }
+  },
+  "card": {
+    "start": "Start",
+    "no_description": "No description",
+    "delete_confirm": "Delete dictation?",
+    "delete_desc": "Are you sure? This cannot be undone.",
+    "delete_yes": "Yes, delete",
+    "delete_cancel": "Cancel"
+  },
+  "form": {
+    "create_title": "New Dictation",
+    "edit_title": "Edit Dictation",
+    "title_label": "Title",
+    "desc_label": "Description",
+    "lang_label": "Language",
+    "words_label": "Word list",
+    "words_help": "Example: apple, banana",
+    "words_count": "{{count}} words",
+    "is_public": "Public access",
+    "save": "Save",
+    "create": "Create",
+    "cancel": "Cancel"
+  },
+  "game": {
+    "progress": "Word {{current}} of {{total}}",
+    "input_placeholder": "Type the word...",
+    "next": "Next",
+    "finish": "Finish",
+    "repeat_hint": "Click to repeat"
+  },
+  "result": {
+    "perfect": "Perfect! 🎉",
+    "good": "Good job!",
+    "bad": "Keep practicing",
+    "score_title": "Your score: {{correct}} out of {{total}}",
+    "retry": "Try Again",
+    "back": "Back to List",
+    "details": "Details:",
+    "you_wrote": "You wrote:",
+    "correct_was": "Correct:"
+  }
+}

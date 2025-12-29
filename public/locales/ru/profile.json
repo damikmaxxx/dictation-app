@@ -1,0 +1,11 @@
+{
+  "history_title": "История прохождений",
+  "table": {
+    "date": "Дата",
+    "dictation": "Диктант",
+    "lang": "Язык",
+    "score": "Результат",
+    "details": "Детали",
+    "words_count": "{{correct}} из {{total}} слов"
+  }
+}

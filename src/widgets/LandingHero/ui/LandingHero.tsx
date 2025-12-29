@@ -4,11 +4,11 @@ import { Button } from 'shared/ui';
 import { ROUTES } from 'shared/config';
 import { useAppSelector } from 'app/store/hooks';
 import styles from './LandingHero.module.scss';
-
+import { useTranslation } from 'react-i18next';
 export const LandingHero: React.FC = () => {
   const navigate = useNavigate();
   const isAuth = useAppSelector((state) => state.user.isAuth);
-
+  const { t } = useTranslation('landing'); 
   const handleStart = () => {
     if (isAuth) {
       navigate(ROUTES.DICTATION_LIST);
@@ -21,12 +21,10 @@ export const LandingHero: React.FC = () => {
     <section className={styles.section}>
       <div className={styles.content}>
         <h1 className={styles.title}>
-          Мини-диктанты Слов
+          {t('hero.title')}
         </h1>
         <p className={styles.description}>
-          Тренируй правописание через диктанты, созданные специально под тебя. 
-          Загружай свои слова, слушай их в случайном порядке и проверяй, 
-          насколько правильно пишешь.
+          {t('hero.description')}
         </p>
         
         <Button 
@@ -35,7 +33,7 @@ export const LandingHero: React.FC = () => {
           className={styles.button} 
           onClick={handleStart}
         >
-          начать
+          {t('hero.start_button')}
         </Button>
       </div>
 

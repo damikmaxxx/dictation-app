@@ -1,0 +1,57 @@
+{
+  "list": {
+    "title": "Библиотека",
+    "tab_my": "Ваши диктанты",
+    "tab_public": "Публичные",
+    "create_button": "Создать",
+    "filters": {
+      "language": "Язык",
+      "any": "Любой"
+    },
+    "empty": {
+      "my_title": "Здесь будут ваши диктанты",
+      "my_button": "Создать первый диктант",
+      "public": "Ничего не найдено"
+    }
+  },
+  "card": {
+    "start": "Начать",
+    "no_description": "Нет описания",
+    "delete_confirm": "Удалить диктант?",
+    "delete_desc": "Вы уверены? Это действие нельзя отменить.",
+    "delete_yes": "Да, удалить",
+    "delete_cancel": "Отмена"
+  },
+  "form": {
+    "create_title": "Новый диктант",
+    "edit_title": "Редактирование",
+    "title_label": "Название",
+    "desc_label": "Описание",
+    "lang_label": "Язык",
+    "words_label": "Список слов",
+    "words_help": "Пример: apple, banana",
+    "words_count": "{{count}} слов",
+    "is_public": "Публичный доступ",
+    "save": "Сохранить",
+    "create": "Создать",
+    "cancel": "Отмена"
+  },
+  "game": {
+    "progress": "Слово {{current}} из {{total}}",
+    "input_placeholder": "Введите слово...",
+    "next": "Далее",
+    "finish": "Завершить",
+    "repeat_hint": "Нажмите, чтобы повторить"
+  },
+  "result": {
+    "perfect": "Идеально! 🎉",
+    "good": "Хороший результат!",
+    "bad": "Нужно потренироваться",
+    "score_title": "Ваш результат: {{correct}} из {{total}}",
+    "retry": "Попробовать снова",
+    "back": "В список",
+    "details": "Детализация:",
+    "you_wrote": "Вы написали:",
+    "correct_was": "Надо:"
+  }
+}

@@ -54,6 +54,7 @@ const baseQueryWithReauth: BaseQueryFn<
         } else {
 
           localStorage.removeItem('accessToken');
+          api.dispatch(baseApi.util.resetApiState());
           api.dispatch({ type: 'user/logout' });
         }
       } finally {

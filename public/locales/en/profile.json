@@ -1,0 +1,11 @@
+{
+  "history_title": "Practice History",
+  "table": {
+    "date": "Date",
+    "dictation": "Dictation",
+    "lang": "Language",
+    "score": "Score",
+    "details": "Details",
+    "words_count": "{{correct}} of {{total}} words"
+  }
+}
